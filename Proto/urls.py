@@ -13,6 +13,6 @@ urlpatterns = patterns('',
     url(r'^project/players_text/$', views.players, name="players"),
     url(r'^project/players/$', views.players2, name="players2"),
     url(r'^project/matchs/$', views.matchs, name="matchs"),
-    url(r'^project/api/players/$', views.playersJSON, name="playersJSON"),
+    url(r'^project/api/players/$', views.players_json, name="players_json"),
     url(r'^project/player_details/(?P<player>\w+)/$', views.player_details, name="playerDetails"),
 )

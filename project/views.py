@@ -33,6 +33,6 @@ def player_details(request, player):
 
 
 # List all players (JSON)
-def playersJSON(request):
+def players_json(request):
     res = [ {"name":x.name, "age":x.age} for x in Player.objects.all()]
     return HttpResponse(json.dumps(res), content_type="application/json")
