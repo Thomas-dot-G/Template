@@ -29,7 +29,7 @@ def matchs(request):
 # List Player details
 def playerDetails(request, player):
     res = [x for x in Player.objects.all() if x.name == player]
-    return render(request, "playerDetails.html", {"player": res[0]})
+    return render(request, "player_details.html", {"player": res[0]})
 
 
 # List all players (JSON)

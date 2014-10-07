@@ -27,10 +27,13 @@
 	  </tr>
 	 </thead>
 	 <tbody>
-	  {% for p in matchs  %}
+	  {% for m in matchs  %}
 	  <tr>
-	    <td>{{p.place}}</td>
-	    <td>{{p.date}}</td>
+	    <td>{{m.place}}</td>
+	    <td>{{m.date}}</td>
+	    <td><a href="{% url 'playerDetails' m.winer.player.name  %}">{{m.winer.player.name}} <span class="badge">{{m.winer.score}}</span></a></td>
+	    <td><a href="{% url 'playerDetails' m.loser.player.name  %}">{{m.loser.player.name}} <span class="badge">{{m.loser.score}}</span></a></td>
+
 	  </tr>
 	  {% endfor %}
 	 </tbody>

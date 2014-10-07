@@ -21,16 +21,15 @@
 	  <tr>
 	    <th>Place</th>
 	    <th>Date</th>
-	    <th>Opponent</th>
 	  </tr>
 	 </thead>
 	 <tbody>
-
+   	  {% for p in player.participation_set.all %}
 	  <tr>
-	    <td></td>
-	    <td></td>
+	    <td>{{ p.match.place }}</td>
+	    <td>{{ p.match.date }}</td>
 	  </tr>
-
+ 	  {% endfor %}
 	 </tbody>
 	</table>
    </div>
