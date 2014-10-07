@@ -4,7 +4,7 @@
 
 {% block menu %}
  <li><a href="{% url 'index' %}">Home</a></li>
- <li class="active"><a href="{% url 'players2' %}">Players</a></li>
+ <li class="active"><a href="{% url 'players' %}">Players</a></li>
  <li><a href="{% url 'matchs' %}">Matchs</a></li>
 {% endblock %}
 
@@ -19,6 +19,7 @@
 	<table class="table">
 	 <thead>
 	  <tr>
+	    <th>Id</th>
 	    <th>Name</th>
 	    <th>Age</th>
 	    <th>Matchs</th>
@@ -27,10 +28,11 @@
 	 <tbody>
 	  {% for p in players  %}
 	  <tr>
+	    <td>{{p.id}}</td>
 	    <td>{{p.name}}</td>
 	    <td>{{p.age}}</td>
 	    <!-- Generate dynamic link -->
-	    <td><a href="{% url 'players'  %}">Matchs <span class="badge">{{ p.matchs.count}}</span></a></td>
+	    <td><a href="{% url 'player_details' p.id %}">view details <span class="badge">{{ p.matchs.count}}</span></a></td>
 	  </tr>
 	  {% endfor %}
 	 </tbody>

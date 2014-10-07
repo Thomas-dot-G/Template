@@ -9,13 +9,13 @@ def index(request):
 
 
 # List all players in a simple way
-def players(request):
+def players_text(request):
     res = [x.name+"<br>" for x in Player.objects.all()]
     return HttpResponse(res)
 
 
 # List all players using templates
-def players2(request):
+def players(request):
     res = [x for x in Player.objects.all()]
     return render(request, "players.html", {"players": res})
 
@@ -27,12 +27,12 @@ def matchs(request):
 
 
 # List Player details
-def playerDetails(request, player):
-    res = [x for x in Match.objects.all()]
-    return render(request, "playerDetails.html", {"player": res[0]})
+def player_details(request, player_id):
+    res = [x for x in Player.objects.all()]
+    return render(request, "player_details.html", {"player": res[0]})
 
 
 # List all players (JSON)
-def playersJSON(request):
+def players_json(request):
     res = [ {"name":x.name, "age":x.age} for x in Player.objects.all()]
     return HttpResponse(json.dumps(res), content_type="application/json")

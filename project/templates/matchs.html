@@ -4,10 +4,9 @@
 
 {% block menu %}
  <li><a href="{% url 'index' %}">Home</a></li>
- <li><a href="{% url 'players2' %}">Players</a></li>
+ <li><a href="{% url 'players' %}">Players</a></li>
  <li class="active"><a href="{% url 'matchs' %}">Matchs</a></li>
 {% endblock %}
-
 
 {% block content %}
 
@@ -20,19 +19,19 @@
 	<table class="table">
 	 <thead>
 	  <tr>
+	  	<th>Id</th>
 	    <th>Place</th>
 	    <th>Date</th>
-	    <th>Winer</th>
-	    <th>Loser</th>
+	    <th>Details</th>
 	  </tr>
 	 </thead>
 	 <tbody>
 	  {% for p in matchs  %}
 	  <tr>
+	    <td>{{p.id}}</td>
 	    <td>{{p.place}}</td>
 	    <td>{{p.date}}</td>
-	    <td>{{p.winer.name}}</td>
-	    <td>{{p.loser.name}}</td>
+	    <td><a>view details</a></td>
 	  </tr>
 	  {% endfor %}
 	 </tbody>
