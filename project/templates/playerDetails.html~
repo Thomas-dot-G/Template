@@ -12,7 +12,7 @@
 
 <div class="panel panel-primary">
   <div class="panel-heading">
-    <h3 class="panel-title">Player {{ player.name }}</h3>
+    <h3 class="panel-title">Player {{ player.name }}  Age  {{ player.age }}</h3>
   </div>
   <div class="panel-body">
 	<!-- Panel content -->
@@ -25,12 +25,12 @@
 	  </tr>
 	 </thead>
 	 <tbody>
-	  {% for m in player.match  %}
+
 	  <tr>
-	    <td>{{m.place}}</td>
-	    <td>{{m.date}}</td>
+	    <td></td>
+	    <td></td>
 	  </tr>
-	  {% endfor %}
+
 	 </tbody>
 	</table>
    </div>
