@@ -1,8 +1,9 @@
 body {
-  padding-top: 50px;
+  padding-top: 70px;
+  padding-bottom: 30px;
 }
 
 .contenu {
-    padding: 40px 15px;
-    text-align: center;
+  padding: 40px 15px;
+  text-align: center;
 }
