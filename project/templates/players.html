@@ -2,6 +2,11 @@
 
 {% block title %}Players list{% endblock %}
 
+{% block head %}
+{% load staticfiles %}
+  <script src="{% static "js/filter-players.js" %}"></script>
+{% endblock %}
+
 {% block menu %}
  <li><a href="{% url 'index' %}">Home</a></li>
  <li class="active"><a href="{% url 'players2' %}">Players</a></li>
@@ -16,6 +21,11 @@
   </div>
   <div class="panel-body">
 	<!-- Panel content -->
+        <div class="input-group">
+          <span class="glyphicon glyphicon-filter input-group-addon"></span>
+          <input type="text" class="form-control" id="filter-players" placeholder="Filter by name">
+        </div>
+
 	<table class="table">
 	 <thead>
 	  <tr>

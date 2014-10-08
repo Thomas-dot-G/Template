@@ -34,5 +34,8 @@ def player_details(request, player):
 
 # List all players (JSON)
 def players_json(request):
-    res = [ {"name":x.name, "age":x.age} for x in Player.objects.all()]
+    res = []
+    for p in Player.objects.all():
+        c = len(Participation.objects.filter(player=p.id))
+        res += [{ "name": p.name, "age": p.age, "matchesCount": c }]
     return HttpResponse(json.dumps(res), content_type="application/json")
