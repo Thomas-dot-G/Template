@@ -9,10 +9,31 @@ function getPlayerData(fn) {
     });
 }
 
+function getPlayerHTML(filter, fn) {
+  $.ajax("/project/api2/players?filter=" + filter.replace(/&/, '%25'))
+    .done(fn)
+    .fail(function(msg) {
+      console.error('AJAX request failed:', msg);
+    });
+}
+
 function onLoad() {
+  // Built the table once
+  getPlayerData(updatePlayers);
+
   // On change in the #filter-players input, compute the table again
   // by filtering rows
-  $('#filter-players').on('input', filterPlayers);
+  $('#with-js .filter-players').on('input', filterPlayers);
+
+  $('#with-django-ajax .filter-players')
+    .on('input', function(event) {
+      var filter = event.target.value;
+
+      getPlayerHTML(filter, function(tbody) {
+        $('#with-django-ajax tbody')
+          .html(tbody);
+      });
+    });
 }
 
 // Create DOM elements from the data
@@ -45,7 +66,7 @@ function updatePlayers(rows) {
     f.appendChild(tr);
   });
 
-  $('table tbody')
+  $('#with-js tbody')
     .empty()
     .append(f);
 }
