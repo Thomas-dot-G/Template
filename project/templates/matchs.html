@@ -25,21 +25,50 @@
 	    <th>Date</th>
 	    <th>Winer</th>
 	    <th>Loser</th>
+      <th>Commentaires</th>
 	  </tr>
 	 </thead>
 	 <tbody>
+
 	  {% for m in matchs  %}
-	  <tr>
+	  <tr class="par">
+
 	    <td>{{m.id}}</td>
 	    <td>{{m.place}}</td>
 	    <td>{{m.date}}</td>
 	    <td>{{m.winer.player.name}} <span class="badge">{{m.winer.score}}</span></td>
 	    <td>{{m.loser.player.name}} <span class="badge">{{m.loser.score}}</span></td>
+      <td> <button class="btn1">Hide</button>
+           <button class="btn2">Show</button>    </td>
+
 	  </tr>
+
+
+    <tr>
+      <td id="hello">
+         ssssssssssssssssssssssssssss
+       </td>
+
+
+    </tr>
+
+
+
 	  {% endfor %}
+
+
+
+{% load static from staticfiles %}
+<script type="text/javascript" src="{% static 'js/matchjs.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/match.css' %}" />
+
 	 </tbody>
 	</table>
+
+
+  </tr>
    </div>
 </div>
+
 
 {% endblock %}
