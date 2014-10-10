@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from project.models import *
-import html
+import HTMLParser
 import json
 
 # Index page
@@ -42,6 +42,7 @@ def players_json(request):
     return HttpResponse(json.dumps(res), content_type="application/json")
 
 def players_table(request):
-    filter = html.unescape(request.GET.get('filter', ''))
+    h = HTMLParser.HTMLParser()
+    filter = h.unescape(request.GET.get('filter', ''))
     res = Player.objects.filter(name__icontains=filter)
     return render(request, "players_table.html", {"players": res})

@@ -10,15 +10,22 @@ class Match(models.Model):
 
     def winer(self):
         return self.participation_set.all().order_by("score").reverse()[0]
-    
+
     def __unicode__(self):
         return self.place
-    
+
 
 # Player class
 class Player(models.Model):
     name = models.CharField(max_length=200)
     age = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return self.name
+
+# Team class
+class Team(models.Model):
+    name = models.CharField(max_length=200)
 
     def __unicode__(self):
         return self.name
