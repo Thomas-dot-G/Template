@@ -14,14 +14,10 @@ class Match(models.Model):
     def __unicode__(self):
         return self.place
 
-
-# Player class
-class Player(models.Model):
-    name = models.CharField(max_length=200)
-    age = models.IntegerField(default=0)
-
-    def __unicode__(self):
-        return self.name
+#Account class
+class Account(models.Model):
+    login = models.CharField(max_length=200)
+    password = models.CharField(max_length=200)
 
 # Team class
 class Team(models.Model):
@@ -29,6 +25,17 @@ class Team(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+# Player class
+class Player(models.Model):
+    name = models.CharField(max_length=200)
+    age = models.IntegerField(default=0)
+    team = models.ForeignKey(Team, blank=True, on_delete=models.SET_NULL, null=True, default=None)
+
+    def __unicode__(self):
+        return self.name
+
 
 
 # Participation Class

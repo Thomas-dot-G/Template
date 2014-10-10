@@ -11,7 +11,10 @@ class PlayerAdmin(admin.ModelAdmin):
 class MatchAdmin(admin.ModelAdmin):
     inlines = (ParticipationInline,)
 
+
 # Register your models here.
 admin.site.register(Player, PlayerAdmin)
 admin.site.register(Match, MatchAdmin)
 admin.site.register(Participation)
+admin.site.register(Team)
+admin.site.register(Account)
