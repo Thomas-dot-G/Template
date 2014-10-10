@@ -44,7 +44,7 @@
               <input type="password" placeholder="Password" class="form-control">
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>
-            <button type="submit" class="btn btn-warning">New account</button>
+            <a href="{% url 'new_account' %}" class="btn btn-warning">New account</a>
           </form>
           <ul class="nav navbar-nav">
       {% block menu %}
@@ -65,7 +65,7 @@
     {% block content %}
    <h1>Welcome to this Site</h1>
   <!-- images et autres -->
-  
+
   {% endblock %}
    </div>
     </div>

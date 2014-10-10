@@ -46,3 +46,7 @@ def players_table(request):
     filter = h.unescape(request.GET.get('filter', ''))
     res = Player.objects.filter(name__icontains=filter)
     return render(request, "players_table.html", {"players": res})
+
+# Create new account
+def new_account(request):
+    return render(request, "new_account.html")
