@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 
 # Match class
 class Match(models.Model):
@@ -18,6 +19,8 @@ class Match(models.Model):
 class Account(models.Model):
     login = models.CharField(max_length=200)
     password = models.CharField(max_length=200)
+    CHOICES=(('a','Admin'), ('a','Player'), ('g','Guest'))
+    title = models.CharField(max_length=1, choices=CHOICES)
 
 # Team class
 class Team(models.Model):
@@ -46,3 +49,12 @@ class Participation(models.Model):
 
     def __unicode__(self):
         return self.match.place + " " + self.player.name
+
+#new account class (Forms)
+class newaccount(forms.Form):
+    name = forms.CharField(label="login", max_length=200, widget=forms.TextInput)
+    pasword = forms.CharField(label="password", max_length=200, widget=forms.PasswordInput)
+    age = forms.IntegerField(label="age")
+    CHOICES=(('a','Admin'), ('a','Player'), ('g','Guest'))
+    title = forms.ChoiceField(label="title", widget=forms.RadioSelect(), choices=CHOICES)
+    team = forms.CharField(label="team", max_length=200, widget=forms.TextInput)

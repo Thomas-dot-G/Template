@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from project.models import *
+from django.core import serializers
 import HTMLParser
 import json
 
@@ -49,4 +50,20 @@ def players_table(request):
 
 # Create new account
 def new_account(request):
-    return render(request, "new_account.html")
+    if request.method == 'GET':
+        res = newaccount()
+    else:
+        res = newaccount(request.POST)
+        if res.is_valid() :
+            login = res.cleaned_data["login"] #formate data recues
+            age = res.cleaned_data["age"]
+            password = res.cleaned_data["password"]
+            title = res.cleaned_data["title"]
+            team = res.cleaned_data["team"]
+            p = Player(name=name, age=age, team=team)
+            p.save()
+            l = Account(login=login, password=password, title=title)
+            l.save()
+            return HttpResponseRedirect("index")
+
+    return render(request, "new_account.html", {"res": res})
