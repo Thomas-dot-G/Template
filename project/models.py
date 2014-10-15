@@ -53,7 +53,7 @@ class Participation(models.Model):
 #new account class (Forms)
 class newaccount(forms.Form):
     name = forms.CharField(label="login", max_length=200, widget=forms.TextInput)
-    pasword = forms.CharField(label="password", max_length=200, widget=forms.PasswordInput)
+    password = forms.CharField(label="password", max_length=200, widget=forms.PasswordInput)
     age = forms.IntegerField(label="age")
     CHOICES=(('a','Admin'), ('a','Player'), ('g','Guest'))
     title = forms.ChoiceField(label="title", widget=forms.RadioSelect(), choices=CHOICES)

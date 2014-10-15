@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from project.models import *
 from django.core import serializers
@@ -55,15 +56,24 @@ def new_account(request):
     else:
         res = newaccount(request.POST)
         if res.is_valid() :
-            login = res.cleaned_data["login"] #formate data recues
+            name = res.cleaned_data["name"] #formate data recues
             age = res.cleaned_data["age"]
             password = res.cleaned_data["password"]
             title = res.cleaned_data["title"]
             team = res.cleaned_data["team"]
-            p = Player(name=name, age=age, team=team)
+            appartien=False
+            for t in Team.objects.all():
+              if t.name==team:
+                appartien=True
+                nt=t
+            if appartien==False:
+              nt= Team(name=team)
+              nt.save()
+
+            p = Player(name=name, age=age, team=nt)
             p.save()
-            l = Account(login=login, password=password, title=title)
+            l = Account(login=name, password=password, title=title)
             l.save()
-            return HttpResponseRedirect("index")
+            return HttpResponseRedirect(reverse('index'))
 
     return render(request, "new_account.html", {"res": res})
