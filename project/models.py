@@ -10,10 +10,14 @@ class Match(models.Model):
 
     def winer(self):
         return self.participation_set.all().order_by("score").reverse()[0]
-    
+
+    def comment(self)
+    return self.comment_set.all()        
+
+
     def __unicode__(self):
         return self.place
-    
+
 
 # Player class
 class Player(models.Model):
@@ -32,3 +36,12 @@ class Participation(models.Model):
 
     def __unicode__(self):
         return self.match.place + " " + self.player.name
+
+#Commentaire
+class Comment(models.Model):
+    comm = models.CharField(max_length=1000)
+    auteur = models.ForeignKey(Player)
+    match = models.ForeignKey(Match)
+
+    def __unicode__(self):
+      return self.auteur.name

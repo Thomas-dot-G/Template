@@ -46,3 +46,8 @@ def players_table(request):
     filter = h.unescape(request.GET.get('filter', ''))
     res = Player.objects.filter(name__icontains=filter)
     return render(request, "players_table.html", {"players": res})
+
+# Liste des commentaires
+def comments(request):
+    res = [x for x in Comment.objects.all()]
+    return render(request, "comments.html", {"comments": res})

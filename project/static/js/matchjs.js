@@ -7,4 +7,9 @@ $(document).ready(function() {
   });
 
 
+
 });
+
+function nomfunction(arg){
+  $("#"+arg+"-comment").slideToggle();
+}

@@ -21,7 +21,7 @@
 	 <thead>
 	  <tr>
 	    <th>Id</th>
-	    <th>Place</th>
+	    <th >Place</th>
 	    <th>Date</th>
 	    <th>Winer</th>
 	    <th>Loser</th>
@@ -31,7 +31,7 @@
 	 <tbody>
 
 	  {% for m in matchs  %}
-	  <tr class="par">
+	  <tr id="{{m.id}}-par" onClick = "nomfunction('{{m.id}}')">
 
 	    <td>{{m.id}}</td>
 	    <td>{{m.place}}</td>
@@ -39,20 +39,15 @@
 	    <td>{{m.winer.player.name}} <span class="badge">{{m.winer.score}}</span></td>
 	    <td>{{m.loser.player.name}} <span class="badge">{{m.loser.score}}</span></td>
       <td> <button class="btn1">Hide</button>
-           <button class="btn2">Show</button>    </td>
+           <button class="btn2">Show</button>  </td>
 
-	  </tr>
+	  </tr >
 
-
-    <tr>
-      <td id="hello">
-         ssssssssssssssssssssssssssss
-       </td>
-
-
+    <tr >
+      <td class="hello" id="{{m.id}}-comment" >
+        helllllllllllllllllllo 
+      </td>
     </tr>
-
-
 
 	  {% endfor %}
 
@@ -60,7 +55,6 @@
 
 {% load static from staticfiles %}
 <script type="text/javascript" src="{% static 'js/matchjs.js' %}"></script>
-<link rel="stylesheet" href="{% static 'css/match.css' %}" />
 
 	 </tbody>
 	</table>
