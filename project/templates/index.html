@@ -17,8 +17,11 @@
 <!-- JQuery JavaScript -->
 <script type="text/javascript" src="{% static 'js/jquery-2.1.1.min.js' %}"></script>
 
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+  {% block head %}{% endblock %}
   </head>
 
   <body>
@@ -36,13 +39,23 @@
         </div>
         <div class="collapse navbar-collapse">
 
-             <form class="navbar-form navbar-right" role="form">
+             <form class="navbar-form navbar-right" role="form" action="/project/" method="post">
+            {% csrf_token %}
             <div class="form-group">
-              <input type="text" placeholder="Login" class="form-control">
+
+            {{ res.name }}
+
+
+          <!-- <input id="log" type="text" placeholder="Login" class="form-control">
+          -->
             </div>
+
             <div class="form-group">
-              <input type="password" placeholder="Password" class="form-control">
+            {{ res.password }}
+            <!--  <input id="mdp" type="password" placeholder="Password" class="form-control">
+            -->
             </div>
+
             <button type="submit" class="btn btn-success">Sign in</button>
             <a href="{% url 'new_account' %}" class="btn btn-warning">New account</a>
           </form>

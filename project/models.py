@@ -22,6 +22,9 @@ class Account(models.Model):
     CHOICES=(('a','Admin'), ('a','Player'), ('g','Guest'))
     title = models.CharField(max_length=1, choices=CHOICES)
 
+class Log(models.Model):
+    login = models.CharField(max_length=200)
+
 # Team class
 class Team(models.Model):
     name = models.CharField(max_length=200)
@@ -58,3 +61,7 @@ class newaccount(forms.Form):
     CHOICES=(('a','Admin'), ('a','Player'), ('g','Guest'))
     title = forms.ChoiceField(label="title", widget=forms.RadioSelect(), choices=CHOICES)
     team = forms.CharField(label="team", max_length=200, widget=forms.TextInput)
+
+class login(forms.Form):
+    name = forms.CharField(label="login", max_length=200, widget=forms.TextInput)
+    password = forms.CharField(label="password", max_length=200, widget=forms.PasswordInput)

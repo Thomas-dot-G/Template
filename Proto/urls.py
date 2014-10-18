@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index, name="index"),
     url(r'^project/$', views.index, name="index"),
+    url(r'^project/log/$', views.indexlog, name="indexlog"),
     url(r'^project/players_text/$', views.players, name="players"),
     url(r'^project/players/$', views.players2, name="players2"),
     url(r'^project/matchs/$', views.matchs, name="matchs"),
@@ -17,5 +18,6 @@ urlpatterns = patterns('',
     url(r'^project/player_details/(?P<player>\w+)/$', views.player_details, name="playerDetails"),
     url(r'^project/api2/players/$', views.players_table, name="players_table"),
     url(r'^project/forms/$', views.new_account, name="new_account"),
+
 
 )

@@ -8,8 +8,31 @@ import json
 
 # Index page
 def index(request):
-    return render(request, "index.html")
+      #account=Account.objects.all()[0]
+      #account.entry_set.clear()
+      if request.method == 'GET':
+        res = login()
+      else:
+        res = login(request.POST)
+        if res.is_valid() :
+          name = res.cleaned_data["name"] #formate data recues
+          password = res.cleaned_data["password"]
 
+          for l in Account.objects.all():
+            if l.login==name:
+              if l.password==password:
+                 personne=Log(login=name)
+                 personne.save()
+                 return HttpResponseRedirect(reverse('indexlog'))
+
+      return render(request, "index.html", {"res": res})
+
+#    return render(request, "index.html")
+
+
+def indexlog(request):
+    personne=Log.objects.all()[0]
+    return render(request, "indexlog.html",{"personne": personne} )
 
 # List all players in a simple way
 def players(request):

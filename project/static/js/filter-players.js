@@ -10,6 +10,7 @@ function getPlayerData(fn) {
 }
 
 function getPlayerHTML(filter, fn) {
+  console.log("uyftyr")
   $.ajax("/project/api2/players?filter=" + filter.replace(/&/, '%25'))
     .done(fn)
     .fail(function(msg) {
