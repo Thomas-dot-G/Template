@@ -11,8 +11,8 @@ class Match(models.Model):
     def winer(self):
         return self.participation_set.all().order_by("score").reverse()[0]
 
-    def comment(self)
-    return self.comment_set.all()        
+    def comment(self):
+        return self.comment_set.all()
 
 
     def __unicode__(self):
