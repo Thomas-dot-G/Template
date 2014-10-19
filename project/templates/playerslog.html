@@ -1,4 +1,4 @@
-{% extends "index.html" %}
+{% extends "indexlog.html" %}
 
 {% block title %}Players list{% endblock %}
 
@@ -8,10 +8,10 @@
 {% endblock %}
 
 {% block menu %}
- <li><a href="{% url 'index' %}">Home</a></li>
- <li class="active"><a href="{% url 'players2' %}">Players</a></li>
- <li><a href="{% url 'team' %}">Teams</a></li>
- <li><a href="{% url 'matchs' %}">Matchs</a></li>
+ <li><a href="{% url 'indexlog' %}">Home</a></li>
+ <li class="active"><a href="{% url 'players2log' %}">Players</a></li>
+ <li><a href="{% url 'teamlog' %}">Teams</a></li>
+ <li><a href="{% url 'matchslog' %}">Matchs</a></li>
 {% endblock %}
 
 {% block content %}
@@ -21,7 +21,7 @@
     <h3 class="panel-title">Players list (built with Django without filter)</h3>
   </div>
   <div class="panel-body">
-	<!-- Panel content -->
+  <!-- Panel content -->
         <table class="table">
           <thead>
             <tr>
@@ -49,7 +49,7 @@
     <h3 class="panel-title">Players list (built with JS)</h3>
   </div>
   <div class="panel-body">
-	<!-- Panel content -->
+  <!-- Panel content -->
         <div class="input-group">
           <span class="glyphicon glyphicon-filter input-group-addon"></span>
           <input type="text" class="form-control filter-players" placeholder="Filter by name">
@@ -73,7 +73,7 @@
     <h3 class="panel-title">Players list (built with AJAX from a Django view)</h3>
   </div>
   <div class="panel-body">
-	<!-- Panel content -->
+  <!-- Panel content -->
         <div class="input-group">
           <span class="glyphicon glyphicon-filter input-group-addon"></span>
           <input type="text" class="form-control filter-players" placeholder="Filter by name">

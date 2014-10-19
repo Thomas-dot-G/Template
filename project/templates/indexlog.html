@@ -42,10 +42,7 @@
              <form class="navbar-form navbar-right">
 
             <div class="form-group">
-              <input id="log" type="text" placeholder="{{personne.name}}" class="form-control">
-            </div>
-            <div class="form-group">
-              <input id="mdp" type="password" placeholder="Password" class="form-control">
+              <a href="{% url 'profil' %}" id="profile" class="btn btn-info">{{personne.login}}</a>
             </div>
               <a href="{% url 'index' %}" class="btn btn-danger">Log out</a>
             <a href="{% url 'new_account' %}" class="btn btn-warning">New account</a>
@@ -53,9 +50,10 @@
           <ul class="nav navbar-nav">
       {% block menu %}
 
-         <li class="active"><a href="{% url 'index' %}">Home</a></li>
-         <li><a href="{% url 'players2' %}">Players</a></li>
-         <li><a href="{% url 'matchs' %}">Matchs</a></li>
+         <li class="active"><a href="{% url 'indexlog' %}">Home</a></li>
+         <li><a href="{% url 'players2log' %}">Players</a></li>
+         <li><a href="{% url 'teamlog' %}">Teams</a></li>
+         <li><a href="{% url 'matchslog' %}">Matchs</a></li>
 
 
       {% endblock %}
@@ -69,8 +67,6 @@
     {% block content %}
    <h1>Welcome to this Site</h1>
   <!-- images et autres -->
-  <p>{{personne.name}}</p>
-  <p> test </p>
   {% endblock %}
    </div>
     </div>

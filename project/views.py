@@ -8,15 +8,14 @@ import json
 
 # Index page
 def index(request):
-      #account=Account.objects.all()[0]
-      #account.entry_set.clear()
+      Log.objects.all().delete()
       if request.method == 'GET':
-        res = login()
+        form = login()
       else:
-        res = login(request.POST)
-        if res.is_valid() :
-          name = res.cleaned_data["name"] #formate data recues
-          password = res.cleaned_data["password"]
+        form = login(request.POST)
+        if form.is_valid() :
+          name = form.cleaned_data["name"] #formate data recues
+          password = form.cleaned_data["password"]
 
           for l in Account.objects.all():
             if l.login==name:
@@ -25,7 +24,7 @@ def index(request):
                  personne.save()
                  return HttpResponseRedirect(reverse('indexlog'))
 
-      return render(request, "index.html", {"res": res})
+      return render(request, "index.html", {"form": form})
 
 #    return render(request, "index.html")
 
@@ -37,25 +36,102 @@ def indexlog(request):
 # List all players in a simple way
 def players(request):
     res = [x.name+"<br>" for x in Player.objects.all()]
+    return HttpResponse(res, {"personne": personne})
+
+# List all players in a simple way
+def playerslog(request):
+    res = [x.name+"<br>" for x in Player.objects.all()]
     return HttpResponse(res)
 
 
 # List all players using templates
 def players2(request):
+    if request.method == 'GET':
+      form = login()
+    else:
+      form = login(request.POST)
+      if form.is_valid() :
+        name = form.cleaned_data["name"] #formate data recues
+        password = form.cleaned_data["password"]
+
+        for l in Account.objects.all():
+          if l.login==name:
+            if l.password==password:
+              personne=Log(login=name)
+              personne.save()
+              return HttpResponseRedirect(reverse('indexlog'))
     res = [x for x in Player.objects.all()]
-    return render(request, "players.html", {"players": res})
+    return render(request, "players.html", {"form": form, "players": res})
+
+def players2log(request):
+  personne=Log.objects.all()[0]
+  res = [x for x in Player.objects.all()]
+  return render(request, "playerslog.html", {"personne": personne, "players": res})
+
+# List of Teams
+def team(request):
+    #account=Account.objects.all()
+    #account.delete()
+    if request.method == 'GET':
+      form = login()
+    else:
+      form = login(request.POST)
+      if form.is_valid() :
+        name = form.cleaned_data["name"] #formate data recues
+        password = form.cleaned_data["password"]
+
+        for l in Account.objects.all():
+          if l.login==name:
+            if l.password==password:
+              personne=Log(login=name)
+              personne.save()
+              return HttpResponseRedirect(reverse('indexlog'))
+    res = [x for x in Team.objects.all()]
+    people = [x for x in Player.objects.all()]
+    return render(request, "team.html", {"form":form, "team": res, "people": people})
+
+def teamlog(request):
+  personne=Log.objects.all()[0]
+  res = [x for x in Team.objects.all()]
+  people = [x for x in Player.objects.all()]
+  return render(request, "teamlog.html", {"personne":personne, "team": res, "people": people})
 
 
 # List all matchs using templates
 def matchs(request):
-    res = [x for x in Match.objects.all()]
-    return render(request, "matchs.html", {"matchs": res})
+    if request.method == 'GET':
+      form = login()
+    else:
+      form = login(request.POST)
+      if form.is_valid() :
+        name = form.cleaned_data["name"] #formate data recues
+        password = form.cleaned_data["password"]
 
+        for l in Account.objects.all():
+          if l.login==name:
+            if l.password==password:
+              personne=Log(login=name)
+              personne.save()
+              return HttpResponseRedirect(reverse('indexlog'))
+
+    res = [x for x in Match.objects.all()]
+    return render(request, "matchs.html", {"form":form, "matchs": res})
+
+def matchslog(request):
+  personne=Log.objects.all()[0]
+  res = [x for x in Match.objects.all()]
+  return render(request, "matchslog.html", {"personne":personne, "matchs": res})
 
 # List Player details
 def player_details(request, player):
     res = next(x for x in Player.objects.all() if x.name == player)
     return render(request, "player_details.html", {"player": res})
+
+# List Player details
+def player_detailslog(request, player):
+    personne=Log.objects.all()[0]
+    res = next(x for x in Player.objects.all() if x.name == player)
+    return render(request, "player_detailslog.html", {"personne":personne, "player": res})
 
 
 # List all players (JSON)
@@ -72,8 +148,42 @@ def players_table(request):
     res = Player.objects.filter(name__icontains=filter)
     return render(request, "players_table.html", {"players": res})
 
+
 # Create new account
 def new_account(request):
+    if request.method == 'GET':
+        res = newaccount()
+    else:
+        res = newaccount(request.POST)
+        if res.is_valid() :
+            name = res.cleaned_data["name"] #formate data recues
+            age = res.cleaned_data["age"]
+            password = res.cleaned_data["password"]
+            title = res.cleaned_data["title"]
+            team = res.cleaned_data["team"]
+            appartien=False
+            for n in Account.objects.all():
+              if n.name==name:
+                return HttpResponseRedirect(reverse('new_account.html'))
+              for t in Team.objects.all():
+                if t.name==team:
+                  appartien=True
+                  nt=t
+              if appartien==False:
+                nt= Team(name=team)
+                nt.save()
+              if title!='g':
+                p = Player(name=name, age=age, team=nt)
+                p.save()
+              l = Account(login=name, password=password, title=title)
+              l.save()
+            return HttpResponseRedirect(reverse('index'))
+
+    return render(request, "new_account.html", {"res": res})
+
+# Modify an account
+def profil(request):
+    personne=Log.objects.all()[0]
     if request.method == 'GET':
         res = newaccount()
     else:
@@ -92,11 +202,12 @@ def new_account(request):
             if appartien==False:
               nt= Team(name=team)
               nt.save()
+            if title!='g':
+              playermodif=Player.objects.filter(name=personne.login)
+              playermodif.update(name=name, age=age, team=nt)
+            accountmodif=Account.objects.filter(login=personne.login)
+            accountmodif.update(login=name, password=password, title=title)
+            Log.objects.filter(login=personne.login).update(login=name)
+            return HttpResponseRedirect(reverse('indexlog'))
 
-            p = Player(name=name, age=age, team=nt)
-            p.save()
-            l = Account(login=name, password=password, title=title)
-            l.save()
-            return HttpResponseRedirect(reverse('index'))
-
-    return render(request, "new_account.html", {"res": res})
+    return render(request, "profil.html", {"res": res, "personne": personne})

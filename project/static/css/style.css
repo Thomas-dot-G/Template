@@ -7,3 +7,19 @@ body {
   padding: 40px 15px;
   text-align: center;
 }
+
+#id_name{
+  padding: 4px
+}
+
+#id_password{
+  padding: 4px
+}
+
+#id_team{
+  padding: 4px
+}
+
+#id_age{
+  padding: 4px
+}

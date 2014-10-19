@@ -1,6 +1,6 @@
-{% extends "index.html" %}
+{% extends "indexlog.html" %}
 
-{% block title %}New account{% endblock %}
+{% block title %}Profil{% endblock %}
 
 {% block head %}
 {% load staticfiles %}
@@ -15,21 +15,22 @@
 {% endblock %}
 
 {% block content %}
-<form class="form-horizontal" role="form" action="/project/forms/" method="post">
+<form class="form-horizontal" role="form" action="/project/profil/" method="post">
 
 {% csrf_token %}
 <!-- Form Name -->
-<legend>New account</legend>
+<legend>Profil</legend>
 
 
     <div class="form-group">
-      </br>
-    <!--  {{res.as_ul}} -->
+    </br>
+    Modify your profil here
+  </br></br>
       {{ res.name }} </br>
       {{ res.password }} </br>
       Age: {{ res.age }} </br>
       {{ res.title }} </br>
-      {{ res.team }} </br> 
+      {{ res.team }} </br>
       </br>
       <input type="submit" onClick"submit" class="btn btn-success" value="Valider"/>
     </div>

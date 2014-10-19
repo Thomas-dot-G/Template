@@ -43,7 +43,7 @@
             {% csrf_token %}
             <div class="form-group">
 
-            {{ res.name }}
+            <span class="form">{{ form.name }}</span>
 
 
           <!-- <input id="log" type="text" placeholder="Login" class="form-control">
@@ -51,7 +51,7 @@
             </div>
 
             <div class="form-group">
-            {{ res.password }}
+            <span class="form">{{ form.password }}</span>
             <!--  <input id="mdp" type="password" placeholder="Password" class="form-control">
             -->
             </div>
@@ -64,6 +64,7 @@
 
          <li class="active"><a href="{% url 'index' %}">Home</a></li>
          <li><a href="{% url 'players2' %}">Players</a></li>
+         <li><a href="{% url 'team' %}">Teams</a></li>
          <li><a href="{% url 'matchs' %}">Matchs</a></li>
 
 
