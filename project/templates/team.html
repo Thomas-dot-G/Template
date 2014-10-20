@@ -3,8 +3,8 @@
 {% block title %}Team list{% endblock %}
 
 {% block head %}
-<!--{% load staticfiles %}
-  <script src="{% static 'js/filter-players.js' %}"></script> -->
+{% load staticfiles %}
+  <script src="{% static 'js/filter-players.js' %}"></script>
 {% endblock %}
 
 {% block menu %}
@@ -20,7 +20,21 @@
     <h3 class="panel-title">Team list</h3>
   </div>
   <div class="panel-body">
-    <p>test</p>
+    {% for t in team %}
+    <table class="table">
+     <thead>
+      <tr>
+        <th>{{t.name}}<span class="badge">{{ t.player_set.count}}</span></th>
+      </tr>
+     </thead>
+     <tbody>
+      {% for p in t.player_set.all %}
+      <tr>
+      <td> {{p.name}} </td>
+      </tr>
+      {% endfor %}
+     </tbody>
+       {% endfor %}
   </div>
 </div>
 

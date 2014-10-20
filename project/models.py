@@ -53,6 +53,10 @@ class Participation(models.Model):
     def __unicode__(self):
         return self.match.place + " " + self.player.name
 
+
+    def __unicode__(self):
+        return self.match.place + " " + self.player.name
+
 #new account class (Forms)
 class newaccount(forms.Form):
     name = forms.CharField(label="login", max_length=200, widget=forms.TextInput(attrs={'placeholder': 'Login'}))

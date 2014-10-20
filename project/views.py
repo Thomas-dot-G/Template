@@ -87,7 +87,9 @@ def team(request):
               personne.save()
               return HttpResponseRedirect(reverse('indexlog'))
     res = [x for x in Team.objects.all()]
-    people = [x for x in Player.objects.all()]
+    people= []
+    for x in range(Team.objects.count()):
+      people.append(Player.objects.filter(team=Team.objects.all()[x]))
     return render(request, "team.html", {"form":form, "team": res, "people": people})
 
 def teamlog(request):
@@ -116,6 +118,7 @@ def matchs(request):
 
     res = [x for x in Match.objects.all()]
     return render(request, "matchs.html", {"form":form, "matchs": res})
+
 
 def matchslog(request):
   personne=Log.objects.all()[0]
@@ -163,20 +166,22 @@ def new_account(request):
             team = res.cleaned_data["team"]
             appartien=False
             for n in Account.objects.all():
-              if n.name==name:
-                return HttpResponseRedirect(reverse('new_account.html'))
-              for t in Team.objects.all():
-                if t.name==team:
-                  appartien=True
-                  nt=t
-              if appartien==False:
-                nt= Team(name=team)
-                nt.save()
-              if title!='g':
-                p = Player(name=name, age=age, team=nt)
-                p.save()
-              l = Account(login=name, password=password, title=title)
-              l.save()
+              if n.login==name:
+                return HttpResponseRedirect(reverse('new_account'))
+            for t in Team.objects.all():
+              if t.name==team:
+                appartien=True
+                nt=t
+            if appartien==False and team!="none":
+              nt= Team(name=team)
+              nt.save()
+            if team=="none":
+              nt=None
+            if title!='g':
+              p = Player(name=name, age=age, team=nt)
+              p.save()
+            l = Account(login=name, password=password, title=title)
+            l.save()
             return HttpResponseRedirect(reverse('index'))
 
     return render(request, "new_account.html", {"res": res})
