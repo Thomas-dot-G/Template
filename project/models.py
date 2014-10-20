@@ -64,7 +64,7 @@ class newaccount(forms.Form):
     age = forms.IntegerField(label="age")
     CHOICES=(('a','Admin'), ('a','Player'), ('g','Guest'))
     title = forms.ChoiceField(label="title", widget=forms.RadioSelect(), choices=CHOICES)
-    team = forms.CharField(label="team", max_length=200, widget=forms.TextInput(attrs={'placeholder': 'Team (default none)'}))
+    team = forms.CharField(label="team", max_length=200, widget=forms.TextInput(attrs={'value': 'none'}))
 
 class login(forms.Form):
     name = forms.CharField(label="login", max_length=200, widget=forms.TextInput(attrs={'placeholder': 'Login'}))

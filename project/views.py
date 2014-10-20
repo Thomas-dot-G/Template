@@ -204,9 +204,11 @@ def profil(request):
               if t.name==team:
                 appartien=True
                 nt=t
-            if appartien==False:
+            if appartien==False and team!="none":
               nt= Team(name=team)
               nt.save()
+            if team=="none":
+              nt=None
             if title!='g':
               playermodif=Player.objects.filter(name=personne.login)
               playermodif.update(name=name, age=age, team=nt)
