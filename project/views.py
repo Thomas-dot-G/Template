@@ -127,8 +127,22 @@ def matchslog(request):
 
 # List Player details
 def player_details(request, player):
+    if request.method == 'GET':
+      form = login()
+    else:
+      form = login(request.POST)
+      if form.is_valid() :
+        name = form.cleaned_data["name"] #formate data recues
+        password = form.cleaned_data["password"]
+
+        for l in Account.objects.all():
+          if l.login==name:
+            if l.password==password:
+              personne=Log(login=name)
+              personne.save()
+              return HttpResponseRedirect(reverse('indexlog'))
     res = next(x for x in Player.objects.all() if x.name == player)
-    return render(request, "player_details.html", {"player": res})
+    return render(request, "player_details.html", {"player": res, "form":form})
 
 # List Player details
 def player_detailslog(request, player):
@@ -150,6 +164,13 @@ def players_table(request):
     filter = h.unescape(request.GET.get('filter', ''))
     res = Player.objects.filter(name__icontains=filter)
     return render(request, "players_table.html", {"players": res})
+
+
+# Liste des commentaires
+def comments(request):
+    personne=Log.objects.all()[0]
+    res = [x for x in Comment.objects.all()]
+    return render(request, "comments.html", {"personne":personne,"comments": res})
 
 
 # Create new account
@@ -218,3 +239,71 @@ def profil(request):
             return HttpResponseRedirect(reverse('indexlog'))
 
     return render(request, "profil.html", {"res": res, "personne": personne})
+
+#Create a new match
+def new_match(request):
+    personne=Log.objects.all()[0]
+    if request.method =='GET':
+       res = newmatch()
+    else:
+        res = newmatch(request.POST)
+
+        if res.is_valid():
+            place = res.cleaned_data["place"]
+            #date = res.cleaned_data["date"]
+            player1 = res.cleaned_data['player1']
+            player2 = res.cleaned_data['player2']
+            score1 = res.cleaned_data['score1']
+            score2 = res.cleaned_data['score2']
+            m=Match(place = place)
+            m.save()
+
+            #loser=request.POST['loser']
+            #winner = request.POST['winner']
+
+            for p in Player.objects.all():
+              if p.name==player1:
+                Participation(player = p, match =m, score=score1).save()
+
+            for p2 in Player.objects.all():
+              if p2.name == player2:
+                Participation(player = p2, match = m, score=score2).save()
+
+            return HttpResponseRedirect(reverse('index'))
+    return render(request, "new_match.html", {"res": res, "players": players,  "personne": personne})
+
+
+# Modifier un match
+def alter_match(request, name):
+    personne=Log.objects.all()[0]
+    if request.method =='GET':
+       res = newmatch()
+    else:
+        res = newmatch(request.POST)
+
+        if res.is_valid():
+            place = res.cleaned_data["place"]
+            #date = res.cleaned_data["date"]
+            player1 = res.cleaned_data['player1']
+            player2 = res.cleaned_data['player2']
+
+            thematch = next(x for x in Match.objects.all() if x.place == name)
+
+            match2 = Match.objects.filter(place = name)
+
+            matchmodif = Match.objects.filter(place = name)
+            matchmodif.update(place = place)
+
+            for p in Player.objects.all():
+              if p.name==player1:
+                partcip1 = Participation.objects.filter(player=p1, match=match2)
+                particip1.update(player=p, match=matchmodif)
+
+            for p2 in Player.objects.all():
+              if p2.name == player2:
+                partcip2 = Participation.objects.filter(player=p2, match=match2)
+                particip2.update(player=p2, match=matchmodif)
+
+
+            return HttpResponseRedirect(reverse('index'))
+    return render(request, "alter_match.html", {"res": res, "matchs": match, "personne": personne})

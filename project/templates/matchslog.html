@@ -6,7 +6,7 @@
  <li><a href="{% url 'indexlog' %}">Home</a></li>
  <li><a href="{% url 'players2log' %}">Players</a></li>
  <li><a href="{% url 'teamlog' %}">Teams</a></li>
- <li class="active"><a href="{% url 'matchs' %}">Matchs</a></li>
+ <li class="active"><a href="{% url 'matchslog' %}">Matchs</a></li>
 {% endblock %}
 
 
@@ -22,24 +22,39 @@
    <thead>
     <tr>
       <th>Id</th>
-      <th>Place</th>
+      <th>Name</th>
       <th>Date</th>
       <th>Winer</th>
       <th>Loser</th>
+      <th>Modifier</th>
     </tr>
    </thead>
    <tbody>
+      <a href="{% url 'new_match' %}" class="btn btn-success">Add a new match</a>
+    </br>
+    </br>
     {% for m in matchs  %}
-    <tr>
-      <td>{{m.id}}</td>
-      <td>{{m.place}}</td>
-      <td>{{m.date}}</td>
-      <td>{{m.winer.player.name}} <span class="badge">{{m.winer.score}}</span></td>
-      <td>{{m.loser.player.name}} <span class="badge">{{m.loser.score}}</span></td>
+    	  <tr  id="{{m.id}}-par" onClick = "nomfunction('{{m.id}}')">
+	    <td>{{m.id}}</td>
+	    <td>{{m.place}}</td>
+	    <td>{{m.date}}</td>
+	    <td>{{m.winer.player.name}} <span class="badge">{{m.winer.score}}</span></td>
+	    <td>{{m.loser.player.name}} <span class="badge">{{m.loser.score}}</span></td>
+      <td><a href="{% url 'alter_match' m.place  %}">Modifier</a></td>
+	  </tr >
+    <tr >
+      <p class="hello" id="{{m.id}}-comment" >
+         Comments :
+         <button class="add_comment">Ajouter un commentaire</button>
+      </p>
     </tr>
-    {% endfor %}
-   </tbody>
-  </table>
+	  {% endfor %}
+{% load static from staticfiles %}
+<script type="text/javascript" src="{% static 'js/matchjs.js' %}"></script>
+
+	 </tbody>
+	</table>
+  </tr>
    </div>
 </div>
 

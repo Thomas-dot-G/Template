@@ -79,6 +79,29 @@
     {% block content %}
    <h1>Welcome to this Site</h1>
   <!-- images et autres -->
+  <button onclick="changeImg()">start</button>
+
+ <script>
+
+var img = document.createElement("img");
+var liste = ["http://www.photos-a-la-con.fr/wp-content/uploads/2014/08/image-drole-selfie.jpg","http://www.ac-grenoble.fr/ien.vienne1-2/spip/IMG/bmp_Image004.bmp","http://www.joomlaworks.net/images/demos/galleries/abstract/7.jpg","http://wallpaperrich.com/wp-content/uploads/2014/09/3d-animated-frog-image.jpg"]
+
+ function show_image(src, width, height, alt) {
+    img.src = src;
+    img.width = width;
+    img.height = height;
+    img.alt = alt;
+
+    // This next line will just add it to the <body> tag
+    document.body.appendChild(img);
+}
+
+ function changeImg() {
+    setInterval(function(){show_image(liste[Math.floor(Math.random() * 4)],150,150,'hello')}, 3000);
+
+ }
+
+ </script>
 
   {% endblock %}
    </div>

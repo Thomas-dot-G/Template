@@ -24,6 +24,9 @@ urlpatterns = patterns('',
     url(r'^project/team/$', views.team, name="team"),
     url(r'^project/teamlog/$', views.teamlog, name="teamlog"),
     url(r'^project/profil/$', views.profil, name="profil"),
+    url(r'^project/forms_match/$',views.new_match, name="new_match"),
+    #url(r'^project/addcomment/$', views.new_comment, name ="new_comment"),
+    url(r'^project/matchmodif/(?P<match>\w+)/$', views.alter_match, name="alter_match"),
 
 
 )

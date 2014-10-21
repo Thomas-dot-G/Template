@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+
+{% block title %}Players list{% endblock %}
+
+{% block head %}
+{% load staticfiles %}
+  <script src="{% static "js/filter-players.js" %}"></script>
+{% endblock %}
+
+{% block menu %}
+ <li><a href="{% url 'index' %}">Home</a></li>
+ <li><a href="{% url 'players2' %}">Players</a></li>
+ <li><a href="{% url 'matchs' %}">Matchs</a></li>
+{% endblock %}
+
+{% block content %}
+<form class="form-horizontal" role="form" action="/project/forms_match/" method="post">
+
+{% csrf_token %}
+<!-- Form Match -->
+<legend>New commentaires</legend>
+
+
+    <div class="form-group">
+      </br>
+      {{ res.as_ul }}
+      </br>
+      <input type="submit" onClick"submit" class="btn btn-success" value="Submit"/>
+    </div>
+
+</form>
+
+
+
+
+{% endblock %}

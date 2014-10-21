@@ -22,7 +22,7 @@
 	 <thead>
 	  <tr>
 	    <th>Id</th>
-	    <th>Place</th>
+	    <th>Name</th>
 	    <th>Date</th>
 	    <th>Winer</th>
 	    <th>Loser</th>
@@ -30,14 +30,23 @@
 	 </thead>
 	 <tbody>
 	  {% for m in matchs  %}
-	  <tr>
+	   <tr  id="{{m.id}}-par" onClick = "nomfunction('{{m.id}}')">
 	    <td>{{m.id}}</td>
 	    <td>{{m.place}}</td>
 	    <td>{{m.date}}</td>
 	    <td>{{m.winer.player.name}} <span class="badge">{{m.winer.score}}</span></td>
 	    <td>{{m.loser.player.name}} <span class="badge">{{m.loser.score}}</span></td>
-	  </tr>
+      <td><a href="{% url 'alter_match' m.place  %}">Modifier</a></td>
+	  </tr >
+    <tr>
+      <p class="hello" id="{{m.id}}-comment" >
+         Comments :
+      </p>
+    </tr>
 	  {% endfor %}
+    {% load static from staticfiles %}
+<script type="text/javascript" src="{% static 'js/matchjs.js' %}"></script>
+
 	 </tbody>
 	</table>
    </div>
